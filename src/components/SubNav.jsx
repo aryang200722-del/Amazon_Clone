@@ -1,5 +1,6 @@
 import React from 'react';
 import { Menu } from 'lucide-react';
+import { useGlobalState } from '../context/StateContext';
 import './SubNav.css';
 
 const navItems = [
@@ -10,11 +11,22 @@ const navItems = [
   "Gift Cards",
   "Sell",
   "Electronics",
-  "Amazon Pay",
-  "Prime"
+  "Computers",
+  "Home",
+  "Fashion"
 ];
 
 export default function SubNav({ onSelectCategory }) {
+  const { dispatch } = useGlobalState();
+
+  const handleCategoryClick = (item) => {
+    const category = item === "Today's Deals" || item === "All" ? "All" : item;
+    dispatch({ type: 'SET_CATEGORY', payload: category });
+    if (onSelectCategory) {
+      onSelectCategory(category);
+    }
+  };
+
   return (
     <div className="subnav">
       <div className="subnav-left">
@@ -22,7 +34,9 @@ export default function SubNav({ onSelectCategory }) {
           <div
             key={item}
             className={`subnav-item ${index === 0 ? 'subnav-all' : ''}`}
-            onClick={() => onSelectCategory && onSelectCategory(item === 'All' ? 'All' : item)}
+            onClick={() => handleCategoryClick(item)}
+            role="button"
+            tabIndex={0}
           >
             {index === 0 && <Menu size={17} />}
             <span>{item}</span>

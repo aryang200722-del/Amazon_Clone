@@ -1,26 +1,36 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { MapPin, Search, ShoppingCart, ChevronDown } from 'lucide-react';
+import { useGlobalState, getCartCount } from '../context/StateContext';
 import './Header.css';
 
-export default function Header({ cartCount = 0, onSearch, user, onSignOut }) {
-  const [searchTerm, setSearchTerm] = React.useState('');
-  const [category, setCategory] = React.useState('All');
+export default function Header({ onNavigateToCart, onNavigateHome, onNavigateSignIn, onNavigateOrders }) {
+  const { state, dispatch } = useGlobalState();
+  const { cart, user, searchQuery, selectedCategory } = state;
+  const [term, setTerm] = useState(searchQuery || '');
+  const [category, setCategory] = useState(selectedCategory || 'All');
+
+  const cartCount = getCartCount(cart);
 
   const handleSearch = (e) => {
     e.preventDefault();
-    if (onSearch) {
-      onSearch(searchTerm, category);
-    }
+    dispatch({ type: 'SET_SEARCH_QUERY', payload: term });
+    dispatch({ type: 'SET_CATEGORY', payload: category });
+    if (onNavigateHome) onNavigateHome();
+  };
+
+  const handleSignOut = (e) => {
+    e.preventDefault();
+    dispatch({ type: 'LOGOUT' });
   };
 
   return (
     <header className="header">
       <div className="header-top">
-        <a href="/" className="header-logo">
+        <div className="header-logo" onClick={onNavigateHome} role="button" tabIndex={0}>
           <span className="amazon-brand-logo">
             amazon<span className="brand-prime">.in</span>
           </span>
-        </a>
+        </div>
 
         <div className="header-location">
           <MapPin size={18} color="#fff" />
@@ -31,7 +41,7 @@ export default function Header({ cartCount = 0, onSearch, user, onSignOut }) {
         </div>
 
         <form className="header-search" onSubmit={handleSearch}>
-          <select 
+          <select
             className="search-category-select"
             value={category}
             onChange={(e) => setCategory(e.target.value)}
@@ -41,15 +51,14 @@ export default function Header({ cartCount = 0, onSearch, user, onSignOut }) {
             <option value="Computers">Computers</option>
             <option value="Home">Home & Kitchen</option>
             <option value="Fashion">Fashion</option>
-            <option value="Books">Books</option>
           </select>
 
           <input
             type="text"
             className="search-input"
             placeholder="Search Amazon.in"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
+            value={term}
+            onChange={(e) => setTerm(e.target.value)}
           />
 
           <button type="submit" className="search-submit-btn" aria-label="Search">
@@ -63,25 +72,42 @@ export default function Header({ cartCount = 0, onSearch, user, onSignOut }) {
           <ChevronDown size={14} color="#aaa" />
         </div>
 
-        <a href={user ? "#" : "/signin"} className="header-nav-link" onClick={user ? onSignOut : undefined}>
-          <span className="nav-line-1">Hello, {user ? user.name : 'Sign in'}</span>
-          <span className="nav-line-2">
-            Account & Lists <ChevronDown size={14} color="#aaa" />
+        <div
+          className="header-nav-link"
+          onClick={user ? handleSignOut : onNavigateSignIn}
+          role="button"
+          tabIndex={0}
+        >
+          <span className="nav-line-1">
+            {user ? `Hello, ${user.name}` : 'Hello, Sign in'}
           </span>
-        </a>
+          <span className="nav-line-2">
+            {user ? 'Sign Out' : 'Account & Lists'} <ChevronDown size={14} color="#aaa" />
+          </span>
+        </div>
 
-        <a href="/orders" className="header-nav-link returns-link">
+        <div
+          className="header-nav-link returns-link"
+          onClick={onNavigateOrders}
+          role="button"
+          tabIndex={0}
+        >
           <span className="nav-line-1">Returns</span>
           <span className="nav-line-2">& Orders</span>
-        </a>
+        </div>
 
-        <a href="/cart" className="header-cart">
+        <div
+          className="header-cart"
+          onClick={onNavigateToCart}
+          role="button"
+          tabIndex={0}
+        >
           <div className="cart-icon-wrapper">
             <ShoppingCart size={32} />
             <span className="cart-count">{cartCount}</span>
           </div>
           <span className="cart-title">Cart</span>
-        </a>
+        </div>
       </div>
     </header>
   );

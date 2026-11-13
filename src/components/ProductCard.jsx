@@ -1,9 +1,19 @@
 import React from 'react';
 import { Star } from 'lucide-react';
+import { useGlobalState } from '../context/StateContext';
 import './ProductCard.css';
 
 export default function ProductCard({ product, onAddToCart }) {
-  const { id, title, price, originalPrice, rating, reviewsCount, image, prime, badge } = product;
+  const { dispatch } = useGlobalState();
+  const { title, price, originalPrice, rating, reviewsCount, image, prime, badge } = product;
+
+  const handleAdd = () => {
+    if (onAddToCart) {
+      onAddToCart(product);
+    } else {
+      dispatch({ type: 'ADD_TO_CART', payload: product });
+    }
+  };
 
   return (
     <div className="product-card">
@@ -50,10 +60,7 @@ export default function ProductCard({ product, onAddToCart }) {
       </div>
 
       <div className="product-card-footer">
-        <button
-          className="add-to-cart-btn"
-          onClick={() => onAddToCart && onAddToCart(product)}
-        >
+        <button className="add-to-cart-btn" onClick={handleAdd}>
           Add to Cart
         </button>
       </div>
