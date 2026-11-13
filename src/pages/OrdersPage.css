@@ -1,0 +1,137 @@
+.orders-page {
+  padding: 24px 0 60px;
+}
+
+.orders-title {
+  font-size: 1.75rem;
+  font-weight: 500;
+  margin-bottom: 20px;
+}
+
+.no-orders-box {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 40px;
+  text-align: center;
+}
+
+.orders-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.order-card {
+  background-color: #fff;
+  border: 1px solid #d5d9d9;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.order-card-header {
+  background-color: #f0f2f2;
+  border-bottom: 1px solid #d5d9d9;
+  padding: 14px 20px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  font-size: 12px;
+  color: #565959;
+}
+
+.order-header-meta {
+  display: flex;
+  gap: 32px;
+}
+
+.order-meta-label {
+  display: block;
+  text-transform: uppercase;
+  font-size: 11px;
+}
+
+.order-meta-val {
+  color: #0f1111;
+  font-weight: 600;
+  margin-top: 2px;
+}
+
+.order-header-id {
+  text-align: right;
+}
+
+.order-card-body {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.order-status-badge {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #007600;
+}
+
+.order-items-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.order-item-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  border-bottom: 1px solid #f2f2f2;
+  padding-bottom: 14px;
+}
+
+.order-item-row:last-child {
+  border-bottom: none;
+}
+
+.order-item-img {
+  width: 70px;
+  height: 70px;
+  object-fit: contain;
+}
+
+.order-item-details {
+  flex: 1;
+}
+
+.order-item-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--link-color);
+  margin-bottom: 4px;
+}
+
+.order-item-qty {
+  font-size: 12px;
+  color: #565959;
+}
+
+.order-item-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.order-action-btn {
+  background-color: var(--btn-primary);
+  border: 1px solid var(--btn-primary-border);
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.order-action-btn:hover {
+  background-color: var(--btn-primary-hover);
+}

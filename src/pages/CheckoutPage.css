@@ -1,0 +1,242 @@
+.checkout-page {
+  background-color: #fff;
+  min-height: 100vh;
+}
+
+.checkout-header {
+  background: linear-gradient(to bottom, #f7f7f7, #eaeaea);
+  border-bottom: 1px solid #d5d9d9;
+  padding: 14px 24px;
+}
+
+.checkout-header-inner {
+  max-width: 1150px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.checkout-logo {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: #0f1111;
+}
+
+.checkout-logo span {
+  color: #ff9900;
+}
+
+.checkout-header-title {
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: #333;
+}
+
+.checkout-header-lock {
+  color: #999;
+}
+
+.checkout-content {
+  max-width: 1150px;
+  margin: 24px auto 60px;
+  padding: 0 16px;
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 30px;
+  align-items: start;
+}
+
+.checkout-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.checkout-step-card {
+  border: 1px solid #d5d9d9;
+  border-radius: 8px;
+  padding: 20px 24px;
+  background-color: #fff;
+}
+
+.step-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.step-number {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #0f1111;
+}
+
+.step-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #0f1111;
+}
+
+.address-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.address-grid .full-span {
+  grid-column: span 2;
+}
+
+.checkout-input {
+  width: 100%;
+  height: 36px;
+  border: 1px solid #888c8c;
+  border-radius: 4px;
+  padding: 0 10px;
+  font-size: 13px;
+  outline: none;
+}
+
+.checkout-input:focus {
+  border-color: #e77600;
+  box-shadow: 0 0 3px 2px rgba(228, 121, 17, 0.5);
+}
+
+.payment-options {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.payment-option-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px;
+  border: 1px solid #d5d9d9;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: border-color 0.15s, background-color 0.15s;
+}
+
+.payment-option-label:hover {
+  background-color: #f7f7f7;
+}
+
+.payment-option-label.selected {
+  border-color: #e77600;
+  background-color: #fcf5ee;
+}
+
+.checkout-review-items {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.review-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  border-bottom: 1px solid #f0f0f0;
+  padding-bottom: 12px;
+}
+
+.review-item-img {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+}
+
+.review-item-title {
+  font-size: 13px;
+  font-weight: 600;
+  flex: 1;
+}
+
+.review-item-qty {
+  font-size: 12px;
+  color: #565959;
+}
+
+.review-item-price {
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.checkout-summary-box {
+  border: 1px solid #d5d9d9;
+  border-radius: 8px;
+  padding: 20px;
+  background-color: #fcfcfc;
+  position: sticky;
+  top: 20px;
+}
+
+.place-order-btn {
+  width: 100%;
+  background-color: var(--btn-buy-now);
+  border: 1px solid #e08b15;
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #0f1111;
+  margin-bottom: 12px;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(213, 217, 217, 0.5);
+}
+
+.place-order-btn:hover:not(:disabled) {
+  background-color: var(--btn-buy-now-hover);
+}
+
+.place-order-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.order-terms-note {
+  font-size: 11px;
+  color: #565959;
+  line-height: 1.4;
+  margin-bottom: 16px;
+  border-bottom: 1px solid #e7e7e7;
+  padding-bottom: 14px;
+}
+
+.summary-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 13px;
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  color: #333;
+}
+
+.summary-row.total-row {
+  border-top: 1px solid #e7e7e7;
+  padding-top: 10px;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--price-red);
+}
+
+@media (max-width: 900px) {
+  .checkout-content {
+    grid-template-columns: 1fr;
+  }
+  .address-grid {
+    grid-template-columns: 1fr;
+  }
+  .address-grid .full-span {
+    grid-column: span 1;
+  }
+}

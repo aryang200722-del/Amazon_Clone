@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
 import { MapPin, Search, ShoppingCart, ChevronDown } from 'lucide-react';
 import { useGlobalState, getCartCount } from '../context/StateContext';
 import './Header.css';
@@ -9,24 +10,63 @@ export default function Header({ onNavigateToCart, onNavigateHome, onNavigateSig
   const [term, setTerm] = useState(searchQuery || '');
   const [category, setCategory] = useState(selectedCategory || 'All');
 
+  const navigate = useNavigate();
   const cartCount = getCartCount(cart);
 
   const handleSearch = (e) => {
     e.preventDefault();
     dispatch({ type: 'SET_SEARCH_QUERY', payload: term });
     dispatch({ type: 'SET_CATEGORY', payload: category });
-    if (onNavigateHome) onNavigateHome();
+    if (onNavigateHome) {
+      onNavigateHome();
+    } else {
+      navigate('/');
+    }
   };
 
-  const handleSignOut = (e) => {
+  const handleLogoClick = () => {
+    dispatch({ type: 'SET_SEARCH_QUERY', payload: '' });
+    dispatch({ type: 'SET_CATEGORY', payload: 'All' });
+    if (onNavigateHome) {
+      onNavigateHome();
+    } else {
+      navigate('/');
+    }
+  };
+
+  const handleAuthClick = (e) => {
     e.preventDefault();
-    dispatch({ type: 'LOGOUT' });
+    if (user) {
+      dispatch({ type: 'LOGOUT' });
+    } else if (onNavigateSignIn) {
+      onNavigateSignIn();
+    } else {
+      navigate('/signin');
+    }
+  };
+
+  const handleOrdersClick = (e) => {
+    e.preventDefault();
+    if (onNavigateOrders) {
+      onNavigateOrders();
+    } else {
+      navigate('/orders');
+    }
+  };
+
+  const handleCartClick = (e) => {
+    e.preventDefault();
+    if (onNavigateToCart) {
+      onNavigateToCart();
+    } else {
+      navigate('/cart');
+    }
   };
 
   return (
     <header className="header">
       <div className="header-top">
-        <div className="header-logo" onClick={onNavigateHome} role="button" tabIndex={0}>
+        <div className="header-logo" onClick={handleLogoClick} role="button" tabIndex={0}>
           <span className="amazon-brand-logo">
             amazon<span className="brand-prime">.in</span>
           </span>
@@ -74,7 +114,7 @@ export default function Header({ onNavigateToCart, onNavigateHome, onNavigateSig
 
         <div
           className="header-nav-link"
-          onClick={user ? handleSignOut : onNavigateSignIn}
+          onClick={handleAuthClick}
           role="button"
           tabIndex={0}
         >
@@ -88,7 +128,7 @@ export default function Header({ onNavigateToCart, onNavigateHome, onNavigateSig
 
         <div
           className="header-nav-link returns-link"
-          onClick={onNavigateOrders}
+          onClick={handleOrdersClick}
           role="button"
           tabIndex={0}
         >
@@ -98,7 +138,7 @@ export default function Header({ onNavigateToCart, onNavigateHome, onNavigateSig
 
         <div
           className="header-cart"
-          onClick={onNavigateToCart}
+          onClick={handleCartClick}
           role="button"
           tabIndex={0}
         >

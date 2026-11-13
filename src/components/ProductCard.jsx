@@ -1,11 +1,12 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Star } from 'lucide-react';
 import { useGlobalState } from '../context/StateContext';
 import './ProductCard.css';
 
 export default function ProductCard({ product, onAddToCart }) {
   const { dispatch } = useGlobalState();
-  const { title, price, originalPrice, rating, reviewsCount, image, prime, badge } = product;
+  const { id, title, price, originalPrice, rating, reviewsCount, image, prime, badge } = product;
 
   const handleAdd = () => {
     if (onAddToCart) {
@@ -19,13 +20,15 @@ export default function ProductCard({ product, onAddToCart }) {
     <div className="product-card">
       {badge && <div className="product-badge">{badge}</div>}
 
-      <div className="product-image-container">
+      <Link to={`/product/${id}`} className="product-image-container">
         <img src={image} alt={title} className="product-image" loading="lazy" />
-      </div>
+      </Link>
 
-      <h3 className="product-title" title={title}>
-        {title}
-      </h3>
+      <Link to={`/product/${id}`}>
+        <h3 className="product-title" title={title}>
+          {title}
+        </h3>
+      </Link>
 
       <div className="product-rating">
         <div className="product-stars">
